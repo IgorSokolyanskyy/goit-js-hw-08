@@ -11,15 +11,8 @@ const galleryContainer = document.querySelector(".gallery");
 const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML("beforeend", galleryMarkup);
-galleryContainer.addEventListener("click", createGalleryMarkup)
+galleryContainer.addEventListener("click", onOpenModalImageClick)
 
-// let instance ;
-
-let gallery = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionPosition: 'bottom',
-    captionDelay: 250,
-});
 
 function createGalleryMarkup(galleryItems) {
   return galleryItems
@@ -30,7 +23,6 @@ function createGalleryMarkup(galleryItems) {
       <img
         class="gallery__image"
         src="${preview}"
-        data-source="${original}"
         alt="${description}"
       />
     </a>
@@ -39,27 +31,16 @@ function createGalleryMarkup(galleryItems) {
     .join("");
 }
 
-// function onOpenModalImageClick(e) {
-//   window.addEventListener("keydown", onCloseEscKeyPress);
-//   e.preventDefault();
+function onOpenModalImageClick(e) {
+  e.preventDefault();
   
-//   if (e.target.nodeName !== "IMG") {
-//     return;
-//   }
-  
-//   onImegeClick(e);
-// };
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
 
-// function onImegeClick(e) {
-//   instance = basicLightbox.create(`
-// <img src="${e.target.dataset.source}">`);
-//   instance.show();
-// }
-
-// function onCloseEscKeyPress(e) {
-//   if (e.code === "Escape") {
-//     instance.close();
-//     window.removeEventListener("keydown", onCloseEscKeyPress);
-//     console.log(e.code);
-//   }
-// }
+  let gallery = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionPosition: "bottom",
+    captionDelay: 250,
+  });
+}
